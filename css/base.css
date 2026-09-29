@@ -1,0 +1,131 @@
+/*
+ * O básico: tipografia, cores e o palco.
+ *
+ * O fundo da página é mais escuro que o da simulação de propósito. O canvas
+ * tem de parecer uma janela para dentro de outra coisa, e não um retângulo
+ * pintado na mesma parede.
+ */
+
+:root {
+  --tinta: #E8DFD6;
+  --tinta-fraca: #9C9086;
+  --fundo: #16100C;
+  --fundo-caixa: #1F1712;
+  --borda: #362A22;
+  --comida: #7ED957;
+  --casa: #BE78F0;
+  --largura-texto: 42rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1rem 4rem;
+  background: var(--fundo);
+  color: var(--tinta);
+  font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+header,
+#explicacao {
+  max-width: var(--largura-texto);
+  width: 100%;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.9rem, 5vw, 2.7rem);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin: 2.2rem 0 0.6rem;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0 0 1rem;
+  color: var(--tinta-fraca);
+}
+
+header p {
+  font-size: 1.05rem;
+}
+
+strong {
+  color: var(--tinta);
+  font-weight: 600;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+#palco {
+  /* A simulação tem 1280 por 720 lógicos e encolhe junto com a janela. O
+     canvas guarda a proporção sozinho por causa do `aspect-ratio`. */
+  flex: 1 1 640px;
+  max-width: 1280px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  overflow: hidden;
+  line-height: 0;
+  background: #2A1F19;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
+ol {
+  margin: 0 0 1.2rem;
+  padding-left: 1.3rem;
+  color: var(--tinta-fraca);
+}
+
+li {
+  margin-bottom: 0.35rem;
+}
+
+.cor-comida {
+  color: var(--comida);
+  font-weight: 600;
+}
+
+.cor-casa {
+  color: var(--casa);
+  font-weight: 600;
+}
+
+a {
+  color: var(--comida);
+}
+
+.fonte {
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--borda);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  body {
+    padding: 1.25rem 0.75rem 3rem;
+  }
+}
