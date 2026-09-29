@@ -1,0 +1,11 @@
+{
+  "name": "formigueiro",
+  "version": "1.0.0",
+  "description": "Um formigueiro em JavaScript puro: a trilha aparece sozinha",
+  "private": true,
+  "scripts": {
+    "medir": "node ferramentas/medir.mjs",
+    "test": "node ferramentas/medir.mjs 2 3 && node ferramentas/conferir-colisoes.mjs"
+  },
+  "license": "MIT"
+}
