@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formigueiro — a trilha aparece sozinha</title>
+<meta name="description" content="Uma colônia de formigas em JavaScript puro. Nenhuma formiga sabe o caminho; a trilha aparece do chão.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🐜</text></svg>">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/painel.css">
+</head>
+<body>
+
+<header>
+  <h1>Formigueiro</h1>
+  <p>
+    Nenhuma formiga aqui sabe onde fica a comida, nenhuma lembra do caminho de
+    volta, e nenhuma fala com outra. Cada uma cheira três pontos à sua frente e
+    escolhe um. A trilha que aparece na tela não está no código de ninguém —
+    ela é feita <strong>de chão</strong>.
+  </p>
+</header>
+
+<main>
+  <div id="palco">
+    <canvas id="tela" width="1280" height="720" aria-label="A colônia trabalhando"></canvas>
+  </div>
+
+  <section id="painel" aria-label="O que está acontecendo">
+    <div class="grupo">
+      <span class="rotulo">tempo</span>
+      <span class="valor" data-campo="tempo">0:00</span>
+    </div>
+    <div class="grupo">
+      <span class="rotulo">comida entregue</span>
+      <span class="valor" data-campo="entregues">0</span>
+    </div>
+    <div class="grupo">
+      <span class="rotulo">ainda nos montes</span>
+      <span class="valor" data-campo="restante">0</span>
+    </div>
+    <div class="grupo">
+      <span class="rotulo">carregando agora</span>
+      <span class="valor" data-campo="carregando">0</span>
+    </div>
+    <div class="grupo">
+      <span class="rotulo">ritmo</span>
+      <span class="valor" data-campo="ritmo">0</span>
+    </div>
+    <div class="grupo">
+      <span class="rotulo">volta completa</span>
+      <span class="valor" data-campo="caminho">--</span>
+    </div>
+    <div class="grupo destaque">
+      <span class="rotulo">contra a linha reta</span>
+      <span class="valor" data-campo="eficiencia">--</span>
+    </div>
+
+    <div class="botoes">
+      <button id="cheiro" type="button">esconder o cheiro</button>
+      <button id="recomecar" type="button">outro formigueiro</button>
+    </div>
+
+    <div class="botoes velocidades">
+      <button type="button" data-velocidade="1" class="escolhido">1x</button>
+      <button type="button" data-velocidade="3">3x</button>
+      <button type="button" data-velocidade="8">8x</button>
+    </div>
+  </section>
+</main>
+
+<section id="explicacao">
+  <h2>As cinco regras, e é só isso</h2>
+  <ol>
+    <li>Se eu <strong>vejo</strong> o que procuro, vou direto nele.</li>
+    <li>Se há cheiro à frente, escolho entre os três pontos com chance proporcional ao cheiro.</li>
+    <li>Se não há cheiro nenhum, sigo em frente com um tremor.</li>
+    <li>Se bati na parede, viro.</li>
+    <li>Em 3% dos passos, ignoro tudo isso e vou para qualquer lado.</li>
+  </ol>
+
+  <p>
+    A quinta regra é a que parece errada e é a essencial. Sem ela, a colônia
+    acha a primeira trilha e nunca mais sai dela — a trilha se reforça sozinha e
+    nenhum atalho tem quem o descubra. Com 3% de acaso, umas poucas formigas se
+    desgarram o tempo todo, e são elas que acham o caminho curto.
+  </p>
+
+  <h2>Por que dois cheiros</h2>
+  <p>
+    São dois campos: <span class="cor-comida">verde</span> para “tem comida por
+    aqui” e <span class="cor-casa">violeta</span> para “por aqui se volta para
+    casa”. Com um campo só, a trilha vira um círculo em que as formigas andam
+    para sempre sem chegar a lugar nenhum — foi a primeira versão daqui, é
+    bonita de ver e completamente inútil.
+  </p>
+  <p>
+    E cada formiga deposita o cheiro do caminho que <strong>acabou de
+    fazer</strong>, não o do que quer seguir. Quem volta carregando comida marca
+    “comida”, porque veio de lá. A informação anda ao contrário das formigas.
+  </p>
+
+  <h2>Por que o cheiro evapora</h2>
+  <p>
+    A evaporação não é detalhe de realismo: é o único mecanismo de esquecimento
+    que o sistema tem. Sem ela, a primeira trilha achada — por pior que seja —
+    fica marcada para sempre.
+  </p>
+
+  <h2>O número que não dá para discutir</h2>
+  <p>
+    Uma simulação visual sempre <em>parece</em> funcionar. Por isso o número no
+    painel: a volta completa de uma formiga, comparada com a distância em linha
+    reta entre o ninho e a comida. Rodando sem navegador, a colônia entrega
+    <strong>30 vezes mais comida</strong> que a mesma colônia com o feromônio
+    desligado, e converge para <strong>2,7 vezes</strong> o mínimo geométrico.
+  </p>
+
+  <p class="fonte">
+    Sem framework, sem etapa de build, sem dependência e sem um único arquivo de
+    imagem: as formigas são três elipses e seis riscos.
+    <a href="https://github.com/condeDeveloper/formigueiro">o código</a>
+  </p>
+</section>
+
+<script src="js/aleatorio.js"></script>
+<script src="js/relogio.js"></script>
+<script src="js/mundo/grade.js"></script>
+<script src="js/mundo/feromonio.js"></script>
+<script src="js/mundo/cenario.js"></script>
+<script src="js/formiga/sentidos.js"></script>
+<script src="js/formiga/formiga.js"></script>
+<script src="js/formiga/decisao.js"></script>
+<script src="js/formiga/colonia.js"></script>
+<script src="js/desenho/cores.js"></script>
+<script src="js/desenho/tela.js"></script>
+<script src="js/desenho/desenhaMundo.js"></script>
+<script src="js/desenho/desenhaFormiga.js"></script>
+<script src="js/painel.js"></script>
+<script src="js/principal.js"></script>
+
+</body>
+</html>
