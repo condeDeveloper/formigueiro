@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "medir": "node ferramentas/medir.mjs",
-    "test": "node ferramentas/medir.mjs 2 3 && node ferramentas/conferir-colisoes.mjs"
+    "test": "node ferramentas/medir.mjs 3 3 && node ferramentas/conferir-colisoes.mjs"
   },
   "license": "MIT"
 }

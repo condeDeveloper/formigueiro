@@ -30,7 +30,7 @@ jobs:
       # com o feromonio desligado, e a volta tem de encostar na linha reta. Se
       # uma constante for mexida sem cuidado, e aqui que aparece.
       - name: a colonia entrega comida
-        run: node ferramentas/medir.mjs 2 3
+        run: node ferramentas/medir.mjs 3 3
 
       # A mesma semente tem de dar a mesma simulacao em qualquer maquina. Sem
       # isso, nenhuma medida deste projeto significa nada.
