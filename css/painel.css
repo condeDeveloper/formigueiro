@@ -1,0 +1,109 @@
+/*
+ * O painel de números.
+ *
+ * Fica ao lado num monitor e embaixo num telefone, e os números usam fonte
+ * monoespaçada porque eles mudam trinta vezes por segundo: com fonte
+ * proporcional, a linha inteira dança a cada dígito que troca de largura.
+ */
+
+#painel {
+  flex: 0 1 260px;
+  min-width: 240px;
+  background: var(--fundo-caixa);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 1rem 1.1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.grupo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.38rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+}
+
+.grupo:last-of-type {
+  border-bottom: 0;
+}
+
+.rotulo {
+  font-size: 0.82rem;
+  color: var(--tinta-fraca);
+}
+
+.valor {
+  font: 600 0.95rem/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* Os dígitos com a mesma largura: sem isto o número pula de lugar. */
+  font-variant-numeric: tabular-nums;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+
+.destaque {
+  margin-top: 0.35rem;
+  padding: 0.55rem 0.65rem;
+  background: rgba(126, 217, 87, 0.09);
+  border: 1px solid rgba(126, 217, 87, 0.22);
+  border-radius: 7px;
+}
+
+.destaque .valor {
+  color: var(--comida);
+}
+
+.botoes {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+  flex-wrap: wrap;
+}
+
+button {
+  flex: 1 1 auto;
+  padding: 0.5rem 0.7rem;
+  background: #2B211A;
+  color: var(--tinta);
+  border: 1px solid var(--borda);
+  border-radius: 7px;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #3A2C23;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--comida);
+  outline-offset: 2px;
+}
+
+.velocidades {
+  margin-top: 0.4rem;
+}
+
+.velocidades button {
+  flex: 1 1 0;
+}
+
+.escolhido {
+  background: rgba(126, 217, 87, 0.16);
+  border-color: rgba(126, 217, 87, 0.4);
+  color: var(--comida);
+}
+
+@media (max-width: 900px) {
+  #painel {
+    flex: 1 1 100%;
+  }
+}
