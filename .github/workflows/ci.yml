@@ -1,0 +1,42 @@
+name: a colonia funciona
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  medir:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: ['18', '22', '24']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # Nomes globais repetidos em scripts classicos dao SyntaxError, e o
+      # sintoma aparece num terceiro arquivo. Trinta linhas evitam um dia
+      # perdido.
+      - name: nomes globais repetidos
+        run: node ferramentas/conferir-colisoes.mjs
+
+      # O juiz: a colonia tem de entregar muito mais comida que a mesma colonia
+      # com o feromonio desligado, e a volta tem de encostar na linha reta. Se
+      # uma constante for mexida sem cuidado, e aqui que aparece.
+      - name: a colonia entrega comida
+        run: node ferramentas/medir.mjs 2 3
+
+      # A mesma semente tem de dar a mesma simulacao em qualquer maquina. Sem
+      # isso, nenhuma medida deste projeto significa nada.
+      - name: a mesma semente da a mesma simulacao
+        run: |
+          node ferramentas/medir.mjs 1 1 > primeira.txt
+          node ferramentas/medir.mjs 1 1 > segunda.txt
+          diff primeira.txt segunda.txt
+          echo "reproduzivel"
